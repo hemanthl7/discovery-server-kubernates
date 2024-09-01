@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ds
+  namespace: phantom
+spec:
+  selector:
+      matchLabels:
+        app: ds
+        tier: backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ds
+        tier: backend
+    spec:
+      serviceAccountName: ds
+      containers:
+        - name: ds
+          image: ds:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: APPLICATION_DISCOVERY_SERVER_URL
+              value: http//ds.bosun
+            - name: APPLICATION_DISCOVERY_NAMESPACE
+              value: phantom

@@ -1,0 +1,23 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ds
+  namespace: bosun
+spec:
+  selector:
+    app: ds
+    tier: backend
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+    - name: management
+      protocol: TCP
+      port: 8081
+      targetPort: 8081
+    - name: debug
+      protocol: TCP
+      port: 8090
+      targetPort: 8090
+  type: ClusterIP
